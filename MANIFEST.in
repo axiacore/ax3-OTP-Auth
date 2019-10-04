@@ -1,0 +1,1 @@
+recursive-include ax3_OTP/templates *.html

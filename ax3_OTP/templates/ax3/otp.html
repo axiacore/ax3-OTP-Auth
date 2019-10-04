@@ -1,0 +1,22 @@
+{% extends 'ax3/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Validar numero teléfonico{% endblock %}
+
+{% block content %}
+    <h1>Iniciar sesión</h1>
+    <div>
+        <h2>Ingresa el código enviado por mensaje de texto</h2>
+        <form method="post" action="">
+            {% csrf_token %}
+            {% render_field form.code %}
+            {{form.code.errors}}
+            {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
+            <button type="submit">Validar</button>
+            <a href="{{ sms_url }}">Solicitar un nuevo código</a>
+        </form>
+        <p>Bodytech usa AX3, una tecnología de Axiacore, para ayudarte a iniciar sesión. Recibiras un SMS o un mensaje de confirmación para verificar tu número.</p>
+    </div>
+{% endblock %}

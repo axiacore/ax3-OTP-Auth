@@ -1,0 +1,20 @@
+{% extends 'ax3/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Validación correcta{% endblock %}
+
+{% block content %}
+    <h1>Iniciar sesión</h1>
+    <div>
+        <p>La validacion del telefono fue correcta.</p>
+    </div>
+{% endblock %}
+
+{% block js_globals %}
+<script>
+setTimeout(() => {
+    window.opener.location.href = '{{ redirect|safe }}';
+    window.close();
+}, 1000);
+</script>
+{% endblock %}

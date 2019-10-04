@@ -1,0 +1,20 @@
+{% extends 'ax3/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+    <h1>Iniciar sesión</h1>
+    <div>
+        <h2>Ingresa tu celular</h2>
+        <form method="post" action="">
+            {% csrf_token %}
+            {% render_field form.country_code %}
+            {{form.country_code.errors}}
+            {% render_field form.phone_number %}
+            {{form.phone_number.errors}}
+            <button type="submit">Enviar mensaje de texto</button>
+        </form>
+        <p>Bodytech usa AX3, una tecnología de Axiacore, para ayudarte a iniciar sesión. Recibiras un SMS o un mensaje de confirmación para verificar tu número.</p>
+    </div>
+{% endblock %}
