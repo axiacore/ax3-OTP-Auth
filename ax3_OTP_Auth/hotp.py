@@ -43,11 +43,17 @@ class HOTP:
             aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
             region_name=settings.AWS_DEFAULT_REGION
         )
+
         response = sns.publish(
             PhoneNumber=f'+{country_code}{phone_number}',
-            Message=settings.OTP_AUTH_MESSAGE.format(sms_code)
+            Message=settings.OTP_AUTH_MESSAGE.format(sms_code),
+            MessageAttributes={
+                'AWS.SNS.SMS.SMSType': {
+                    'DataType': 'String',
+                    'StringValue': 'Transactional'
+                }
+            }
         )
-        print(response)
 
     def create(self, country_code: str, phone_number: int):
         secret = self._create_secret(secret=pyotp.random_base32(length=32))
