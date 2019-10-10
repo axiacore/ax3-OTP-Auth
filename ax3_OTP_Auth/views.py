@@ -1,20 +1,27 @@
 from urllib import parse
+from secrets import token_urlsafe
 
-from django.views.generic import FormView, TemplateView
-from django.urls import reverse
 from django.shortcuts import redirect
+from django.urls import reverse
+from django.views.generic import FormView, TemplateView
 
+from .forms import StartForm, VerifyForm
 from .hotp import HOTP
-from .settings import PARAMS
-from .forms import SMSForm, OTPForm
+from .settings import OTP_AUTH_PARAMS
 
 
-class SMSView(FormView):
-    template_name = 'ax3/sms.html'
-    form_class = SMSForm
+class StartView(FormView):
+    template_name = 'otp_auth/start.html'
+    form_class = StartForm
+
+    def render_to_response(self, context, **response_kwargs):
+        response = super().render_to_response(context, **response_kwargs)
+        if not self.request.COOKIES.get('otp_unique_id', None):
+            response.set_cookie('otp_unique_id', token_urlsafe())
+        return response
 
     def form_valid(self, form):
-        hotp = HOTP(session_key=self.request.session.session_key)
+        hotp = HOTP(unique_id=self.request.COOKIES['otp_unique_id'])
         hotp.create(
             country_code=form.cleaned_data['country_code'],
             phone_number=form.cleaned_data['phone_number']
@@ -25,16 +32,19 @@ class SMSView(FormView):
             'phone_number': form.cleaned_data['phone_number'],
             'redirect': self.request.GET['redirect'],
         }
-        if PARAMS:
-            for param in PARAMS:
+        if OTP_AUTH_PARAMS:
+            for param in OTP_AUTH_PARAMS:
                 params[param] = self.request.GET.get(param)
 
-        return redirect('{}?{}'.format(reverse('ax3:otp'), parse.urlencode(params, safe='/')))
+        return redirect('{}?{}'.format(
+            reverse('otp_auth:verify'),
+            parse.urlencode(params, safe='/'))
+        )
 
 
-class OTPView(FormView):
-    template_name = 'ax3/otp.html'
-    form_class = OTPForm
+class VerifyView(FormView):
+    template_name = 'otp_auth/verify.html'
+    form_class = VerifyForm
 
     def get_initial(self):
         initial = super().get_initial()
@@ -47,15 +57,19 @@ class OTPView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         params = {'redirect': self.request.GET['redirect']}
-        if PARAMS:
-            for param in PARAMS:
+        if OTP_AUTH_PARAMS:
+            for param in OTP_AUTH_PARAMS:
                 params[param] = self.request.GET.get(param)
-        context['sms_url'] = '{}?{}'.format(reverse('ax3:sms'), parse.urlencode(params, safe='/'))
+        context['sms_url'] = '{}?{}'.format(
+            reverse('otp_auth:start'),
+            parse.urlencode(params, safe='/')
+        )
         return context
 
     def form_valid(self, form):
         cleaned_data = form.cleaned_data
-        hotp = HOTP(session_key=self.request.session.session_key)
+
+        hotp = HOTP(unique_id=self.request.COOKIES.get('otp_unique_id', ''))
 
         token = hotp.verify(cleaned_data.get('code', ''), phone_number=cleaned_data['phone_number'])
         if not token:
@@ -63,22 +77,22 @@ class OTPView(FormView):
             return self.form_invalid(form)
 
         params = {'token': token, 'redirect': self.request.GET['redirect']}
-        if PARAMS:
-            for param in PARAMS:
+        if OTP_AUTH_PARAMS:
+            for param in OTP_AUTH_PARAMS:
                 params[param] = self.request.GET.get(param)
 
-        return redirect('{}?{}'.format(reverse('ax3:done'), parse.urlencode(params, safe='/')))
+        return redirect('{}?{}'.format(reverse('otp_auth:done'), parse.urlencode(params, safe='/')))
 
 
 class DoneView(TemplateView):
-    template_name = 'ax3/done.html'
+    template_name = 'otp_auth/done.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         params = {'token': self.request.GET['token']}
-        if PARAMS:
-            for param in PARAMS:
+        if OTP_AUTH_PARAMS:
+            for param in OTP_AUTH_PARAMS:
                 params[param] = self.request.GET.get(param)
 
         context['redirect'] = '{}?{}'.format(

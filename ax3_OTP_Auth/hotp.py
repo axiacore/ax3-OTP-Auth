@@ -9,32 +9,32 @@ from . import settings
 
 
 class HOTP:
-    def __init__(self, session_key: str, digits: int = 6):
-        self._session_key = session_key
+    def __init__(self, unique_id: str, digits: int = 6):
+        self._unique_id = unique_id
         self._digits = digits
-        self._life_time = settings.LIFE_TIME
+        self._TTL = settings.OTP_AUTH_TTL
 
     def _create_secret(self, secret: str) -> str:
-        cache.set('{}.secret'.format(self._session_key), secret, timeout=self._life_time)
+        cache.set('{}.secret'.format(self._unique_id), secret, timeout=self._TTL)
         return secret
 
     def _create_counter(self) -> str:
         try:
-            cache.incr('{}.counter'.format(self._session_key))
+            cache.incr('{}.counter'.format(self._unique_id))
         except ValueError:
-            cache.set('{}.counter'.format(self._session_key), 1, timeout=self._life_time)
-        return cache.get('{}.counter'.format(self._session_key))
+            cache.set('{}.counter'.format(self._unique_id), 1, timeout=self._TTL)
+        return cache.get('{}.counter'.format(self._unique_id))
 
     def _create_token(self, phone_number: int) -> str:
         token = token_urlsafe()
-        cache.set(token, phone_number, timeout=self._life_time)
+        cache.set(token, phone_number, timeout=self._TTL)
         return token
 
     def _get_secret(self):
-        return cache.get('{}.secret'.format(self._session_key))
+        return cache.get('{}.secret'.format(self._unique_id))
 
     def _get_counter(self):
-        return cache.get('{}.counter'.format(self._session_key))
+        return cache.get('{}.counter'.format(self._unique_id))
 
     def _send_sms(self, sms_code: int, country_code: str, phone_number: int):
         sns = boto3.client(
@@ -43,10 +43,11 @@ class HOTP:
             aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
             region_name=settings.AWS_DEFAULT_REGION
         )
-        sns.publish(
+        response = sns.publish(
             PhoneNumber=f'+{country_code}{phone_number}',
-            Message=settings.MESSAGE.format(sms_code)
+            Message=settings.OTP_AUTH_MESSAGE.format(sms_code)
         )
+        print(response)
 
     def create(self, country_code: str, phone_number: int):
         secret = self._create_secret(secret=pyotp.random_base32(length=32))
@@ -72,5 +73,5 @@ class HOTP:
     def get_phone_number(self, token: str) -> int:
         phone_number = cache.get(token)
         cache.delete(token)
-        cache.delete_pattern('{}.*'.format(self._session_key))
+        cache.delete_pattern('{}.*'.format(self._unique_id))
         return phone_number

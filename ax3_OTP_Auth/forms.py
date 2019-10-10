@@ -2,9 +2,10 @@ from django import forms
 from django.core.validators import MinLengthValidator, RegexValidator
 
 from .data import CONTRY_CODE_CHOICES
+from .settings import OTP_AUTH_COUNTRIES_CODES
 
 
-class SMSForm(forms.Form):
+class StartForm(forms.Form):
     country_code = forms.ChoiceField(
         choices=CONTRY_CODE_CHOICES,
     )
@@ -17,8 +18,16 @@ class SMSForm(forms.Form):
         ]
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        country_codes = []
+        for code, label in CONTRY_CODE_CHOICES:
+            if code in OTP_AUTH_COUNTRIES_CODES:
+                country_codes.append((code, label))
+        self.fields['country_code'].choices = country_codes
 
-class OTPForm(SMSForm, forms.Form):
+
+class VerifyForm(StartForm, forms.Form):
     HIDDEN_FIELDS = ['country_code', 'phone_number']
 
     code = forms.CharField(

@@ -8,15 +8,15 @@ with open('README.md', 'r') as fh:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='AX3 OTP',
-    version='0.0.1',
+    name='AX3 OTP Auth',
+    version='0.1.0',
     packages=find_packages(),
     include_package_data=True,
     license='BSD License',  # example license
-    description='AX3 OTP is a very simple Django library for generating and verifying one-time passwords using HTOP guidelines.',
+    description='AX3 OTP Auth is a very simple Django library for generating and verifying one-time passwords using HTOP guidelines.',
     long_description_content_type='text/markdown',
     long_description=long_description,
-    url='https://github.com/Axiacore/ax3-OTP',
+    url='https://github.com/Axiacore/ax3-OTP-Auth',
     author='Axiacore',
     author_email='info@axiacore.com',
     classifiers=[

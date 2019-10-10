@@ -102,3 +102,24 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# File types
+*.csv
+*.dump
+*.gz
+*.lock
+*.log
+*.mo
+*.pyc
+*.sql
+*.swn
+*.swo
+*.swp
+
+# OS files
+.DS_Store
+sprites-*.png
+ehthumbs.db
+Icon?
+Thumbs.db
+*~

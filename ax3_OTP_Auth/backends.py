@@ -1,7 +1,7 @@
 from django.contrib.auth.backends import ModelBackend, UserModel
 
 
-class AX3OTPBackend(ModelBackend):
+class OTPAuthBackend(ModelBackend):
     # pylint: disable=arguments-differ
     def authenticate(self, request, mobile_phone=None):
         try:

@@ -1,1 +1,2 @@
-recursive-include ax3_OTP/templates *.html
+recursive-include ax3_OTP_Auth/templates *.html
+recursive-include ax3_OTP_Auth/static *
