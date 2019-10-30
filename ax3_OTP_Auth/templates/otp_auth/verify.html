@@ -1,22 +1,22 @@
 {% extends 'otp_auth/base.html' %}
 {% load widget_tweaks %}
 
-{% block title %}Validar numero teléfonico{% endblock %}
+{% block title %}Inicio de sesión{% endblock %}
 
 {% block content %}
-    <h1>Iniciar sesión</h1>
-    <div>
-        <h2>Ingresa el código enviado por mensaje de texto</h2>
-        <form method="post" action="">
-            {% csrf_token %}
-            {% render_field form.code %}
-            {{form.code.errors}}
-            {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-            {% endfor %}
-            <button type="submit">Validar</button>
-            <a href="{{ sms_url }}">Solicitar un nuevo código</a>
-        </form>
-        <p>Bodytech usa AX3, una tecnología de Axiacore, para ayudarte a iniciar sesión. Recibiras un SMS o un mensaje de confirmación para verificar tu número.</p>
+<form class="form" method="post" action="">
+    {% csrf_token %}
+    <div class="field">
+        <label class="field__label">Ingresa el código que te hemos enviado.</label>
+        {% render_field form.code class+='text-center' %}
+        {{form.code.errors}}
     </div>
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+    <p>¿No recibiste el código? <a class="link" href="{{ sms_url }}">Solicita uno nuevo</a></p>
+    <div class="form__action">
+        <button class="btn btn_is-full-width form__btn" type="submit">Validar</button>
+    </div>
+</form>
 {% endblock %}

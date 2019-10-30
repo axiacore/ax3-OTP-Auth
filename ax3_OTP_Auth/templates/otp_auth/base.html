@@ -17,10 +17,29 @@
 
         <link rel="apple-touch-icon-precomposed" href="{% static 'img/apple-touch-icon.png' %}">
         <link rel="icon" href="{% static 'img/favicon.png' %}">
+        <style>
+            :root {
+                --primary-color: #002aff;
+                --secondary-color: #f3f9ff;
+            }
+        </style>
+        <link rel="stylesheet" type="text/css" href="{% static 'otp_auth/css/normalize.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'otp_auth/css/styles.css' %}">
     </head>
     <body {% block body_attrs %}{% endblock %}>
-        {% block content %}{% endblock %}
+    {% block body %}
+        <div class="main-wrapper">
+            <header class="header">
+                <h2 class="off-screen">AX3 OTP Auth</h2>
+                <img class="header__logo" src="{% static 'otp_auth/img/axiacore-logo.png' %}" alt="Axiacore">
+            </header>
+            <div class="section">
+                <h1 class="section__title">Inicio de sesión</h1>
+                <p class="section__text">Bodytech usa <b>AX3</b>, una tecnología de Axiacore, para ayudarte a iniciar sesión. Recibiras un <b>SMS o un mensaje</b> de confirmación para verificar tu número de teléfono.</p>
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    {% endblock %}
     </body>
 
     {% block js_globals %}{% endblock %}
