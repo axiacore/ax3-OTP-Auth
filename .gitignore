@@ -75,6 +75,9 @@ target/
 # pyenv
 .python-version
 
+# Visual Studio Code
+.vscode/
+
 # celery beat schedule file
 celerybeat-schedule
 
