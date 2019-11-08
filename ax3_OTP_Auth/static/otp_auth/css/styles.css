@@ -284,19 +284,22 @@ button {
 }
 
 .message {
-  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  padding: 0 30px 30px;
   text-align: center;
 }
 .message__icon {
   display: block;
   fill: var(--primary-color);
-  height: 40px;
-  margin: auto;
-  width: 40px;
+  height: 60px;
+  margin: 0 auto 15px;
+  width: 60px;
 }
 .message__title {
-  color: var(--primary-color);
-  font-size: 27px;
+  font-size: 34px;
   font-weight: 700;
   line-height: 38px;
 }
