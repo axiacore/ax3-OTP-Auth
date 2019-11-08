@@ -20,7 +20,11 @@
         <style>
             :root {
                 --primary-color: {{ OTP_PRIMARY_COLOR }};
-                --secondary-color: {{ OTP_SECONDARY_COLOR }};
+
+                --background-btn: {{ OTP_BACKGROUND_BTN }};
+                --background-btn-hover: {{ OTP_BACKGROUND_BTN_HOVER }};
+                --color-text-btn: {{ OTP_COLOR_TEXT_BTN }};
+                --color-text-btn-hover: {{ OTP_COLOR_TEXT_BTN_HOVER }};
             }
         </style>
         <link rel="stylesheet" type="text/css" href="{% static 'otp_auth/css/normalize.css' %}">
@@ -31,7 +35,7 @@
         <div class="main-wrapper">
             <header class="header">
                 <h2 class="off-screen">AX3 OTP Auth</h2>
-                <img class="header__logo" src="{% static 'otp_auth/img/axiacore-logo.png' %}" alt="Axiacore">
+                <img class="header__logo" src="{% static OTP_BRAND_IMG %}" alt="Axiacore">
             </header>
             <div class="section">
                 <h1 class="section__title">Inicio de sesión</h1>

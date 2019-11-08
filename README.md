@@ -48,11 +48,16 @@ After installing the package, the project settings need to be configured.
 **5.** Create Javascript for open OTP window:
 
     $(() => {
-        $('.js-otp-auth').on('click', function() {
+        $('.js-otp-auth').on('click', function () {
             let redirect = $(this).attr('otp-redirect');
             let OTPLoginUrl = $(this).attr('otp-login');
 
-            window.open(`${window.origin}${OTPLoginUrl}?redirect=${redirect}`, '_blank', 'location=yes,height=470,width=420,scrollbars=yes,status=yes');
+            let width = 420;
+            let height = 470;
+            let top = (screen.height / 2) - (height / 2);
+            let left = (screen.width / 2) - (width / 2);
+
+            window.open(`${window.origin}${OTPLoginUrl}?redirect=${redirect}`, '_blank', `location=yes, scrollbars=yes, status=yes, width=${width}, height=${height}, top=${top}, left=${left}`);
         });
     });
 
