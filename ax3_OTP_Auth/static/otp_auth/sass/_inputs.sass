@@ -1,0 +1,125 @@
+.field
+  margin-bottom: 15px
+
+  &__label
+    display: block
+    font-size: 13px
+    font-weight: 700
+    line-height: 16px
+    margin-bottom: 10px
+    text-align: center
+
+  label
+    &.error
+      color: $red
+      display: block
+      margin-top: 5px
+
+  .errorlist
+    color: $red
+    list-style: none
+    padding: 0
+
+    li
+      margin-top: 5px
+
+  &__columns
+    display: flex
+
+  &__col
+    position: relative
+    width: 100%
+
+    &:first-child
+      flex-shrink: 0
+      width: 95px
+
+    &:last-child
+      &::before
+        background-color: $gray-200
+        content: ''
+        display: block
+        height: 20px
+        left: 0
+        opacity: .3
+        position: absolute
+        top: 50%
+        transform: translateY(-50%)
+        width: 1px
+
+#{$text-inputs-list}
+  -moz-appearance: none
+  -webkit-appearance: none
+  appearance: none
+  background-color: $gray-100
+  border: 1px solid $gray-100
+  border-radius: 0
+  color: $gray-300
+  display: block
+  font-size: 16px
+  font-weight: 400
+  height: $inputs-height
+  line-height: 20px
+  margin: 0
+  outline: none
+  padding: 0 16px
+  transition: border $css-time $css-ease
+  width: 100%
+
+  &:focus:not([disabled]):not([readonly])
+    border-color: var(--primary-color)
+
+  &::placeholder
+    color: $gray-300
+    opacity: .7
+
+  &[disabled]
+    cursor: not-allowed
+    opacity: .5
+
+  &[readonly]
+    cursor: not-allowed
+
+select
+  padding-right: $inputs-height
+
+  &[multiple]
+    height: auto
+    padding: 0
+
+    option
+      padding: .5em
+
+  &::-ms-expand // sass-lint:disable-line no-vendor-prefixes
+    display: none
+
+.select
+  position: relative
+
+  &::after
+    border-color: $gray-300
+    border-style: solid
+    border-width: 0 2px 2px 0
+    content: ''
+    display: block
+    height: 10px
+    pointer-events: none
+    position: absolute
+    right: #{ $inputs-height / 2 }
+    top: 50%
+    transform: translateY(-50%) rotate(45deg)
+    transform-origin: bottom right
+    width: 10px
+
+  &_disabled,
+  &_readonly
+    &::after
+      opacity: .5
+
+.form
+  &__action
+    margin: 30px 0 0
+
+  &__btn
+    margin: 0 auto
+    max-width: 154px

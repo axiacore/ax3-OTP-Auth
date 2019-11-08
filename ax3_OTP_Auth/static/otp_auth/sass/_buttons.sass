@@ -1,0 +1,46 @@
+.btn
+  align-items: center
+  background-color: var(--background-btn)
+  border: 0
+  border-radius: 0
+  color: var(--color-text-btn)
+  cursor: pointer
+  display: inline-flex
+  font-size: 14px
+  font-weight: 700
+  height: 40px
+  justify-content: center
+  padding: 0 20px
+  text-decoration: none
+  transition: background-color $css-time $css-ease, color $css-time $css-ease
+  vertical-align: top
+  width: auto
+
+  &:hover:not(:disabled)
+    background-color: var(--background-btn-hover)
+    color: var(--color-text-btn-hover)
+
+  &_disabled,
+  &:disabled
+    cursor: not-allowed
+    opacity: .5
+
+  &_disabled
+    pointer-events: none
+
+  &_is-full-width
+    display: flex
+    width: 100%
+
+.link
+  background-color: transparent
+  border: 0
+  color: var(--primary-color)
+  cursor: pointer
+  font-weight: 700
+  padding: 0
+  text-decoration: underline
+  transition: color $css-time $css-ease
+
+  &:hover
+    color: $gray-300

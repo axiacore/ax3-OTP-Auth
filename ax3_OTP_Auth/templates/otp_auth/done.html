@@ -1,13 +1,14 @@
 {% extends 'otp_auth/base.html' %}
 {% load widget_tweaks %}
 
-{% block title %}Validación correcta{% endblock %}
+{% block title %}Validación exitosa{% endblock %}
 
-{% block content %}
-    <h1>Iniciar sesión</h1>
-    <div>
-        <p>La validacion del telefono fue correcta.</p>
-    </div>
+{% block body %}
+<div class="message">
+    {% include 'svg/_otp-success.html' with class='message__icon' %}
+    <p class="message__text">Validación exitosa.</p>
+    <h1 class="message__title">Bienvenido!</h1>
+</div>
 {% endblock %}
 
 {% block js_globals %}

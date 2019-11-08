@@ -48,11 +48,16 @@ After installing the package, the project settings need to be configured.
 **5.** Create Javascript for open OTP window:
 
     $(() => {
-        $('.js-otp-auth').on('click', function() {
+        $('.js-otp-auth').on('click', function () {
             let redirect = $(this).attr('otp-redirect');
             let OTPLoginUrl = $(this).attr('otp-login');
 
-            window.open(`${window.origin}${OTPLoginUrl}?redirect=${redirect}`, '_blank', 'location=yes,height=470,width=420,scrollbars=yes,status=yes');
+            let width = 420;
+            let height = 470;
+            let top = (screen.height / 2) - (height / 2);
+            let left = (screen.width / 2) - (width / 2);
+
+            window.open(`${window.origin}${OTPLoginUrl}?redirect=${redirect}`, '_blank', `location=yes, scrollbars=yes, status=yes, width=${width}, height=${height}, top=${top}, left=${left}`);
         });
     });
 
@@ -83,7 +88,18 @@ Configure countries allowed list:
     MEXICO = 52
     PERU = 51
 
-    `OTP_AUTH_COUNTRIES_CODES = [57, 54]
+    OTP_AUTH_COUNTRIES_CODES = [57, 54]
+
+Change color, brand name and logo using this variables:
+
+    OTP_PRIMARY_COLOR = '#eb6806'
+    OTP_BACKGROUND_BTN = '#eb6806'
+    OTP_BACKGROUND_BTN_HOVER = '#000'
+    OTP_COLOR_TEXT_BTN = '#fff'
+    OTP_COLOR_TEXT_BTN_HOVER = '#fff'
+    OTP_BRAND_NAME = 'Axiacore'
+    OTP_BRAND_IMG = 'user-relative-path'
+
 
 ## NSN Configuration
 
@@ -116,3 +132,26 @@ Authenticated user requires an OTP, this OTP was sent by AWS SNS service, once t
 
     hotp = HOTP(session_key=request.session.session_key)
     phone_number = htop.get_phone_number(code='123')
+
+
+## Style SASS
+
+For development porpuse is necessary to compile the SASS files before you commit any change.
+
+Install node from this link:
+
+    https://nodejs.org/en/
+
+Then install sass
+
+    $ sudo npm install -g sass
+
+It ask you for a password, write de password of the user of the computer.
+
+
+## Compile SASS
+
+To change the styles of the web page you need to do edit the Sass's files and
+then run this command on the root folder of the project to compile it to CSS:
+
+    $ sass --watch ax3_OTP_Auth/static/otp_auth/sass/styles.sass ax3_OTP_Auth/static/otp_auth/css/styles.css
