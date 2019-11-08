@@ -2,7 +2,6 @@
   margin-bottom: 15px
 
   &__label
-    color: $gray-300
     display: block
     font-size: 13px
     font-weight: 700
@@ -29,17 +28,18 @@
 
   &__col
     position: relative
+    width: 100%
 
     &:first-child
-      flex-grow: 1
+      flex-shrink: 0
+      width: 95px
 
     &:last-child
-      flex-grow: 2
-
       &::before
+        background-color: $gray-200
         content: ''
         display: block
-        height: #{$inputs-height - 8px}
+        height: 20px
         left: 0
         position: absolute
         top: 50%

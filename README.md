@@ -116,3 +116,26 @@ Authenticated user requires an OTP, this OTP was sent by AWS SNS service, once t
 
     hotp = HOTP(session_key=request.session.session_key)
     phone_number = htop.get_phone_number(code='123')
+
+
+## Style SASS
+
+For development porpuse is necessary to compile the SASS files before you commit any change.
+
+Install node from this link:
+
+    https://nodejs.org/en/
+
+Then install sass
+
+    $ sudo npm install -g sass
+
+It ask you for a password, write de password of the user of the computer.
+
+
+## Compile SASS
+
+To change the styles of the web page you need to do edit the Sass's files and
+then run this command on the root folder of the project to compile it to CSS:
+
+    $ sass --watch ax3_OTP_Auth/static/otp_auth/sass/styles.sass ax3_OTP_Auth/static/otp_auth/css/styles.css

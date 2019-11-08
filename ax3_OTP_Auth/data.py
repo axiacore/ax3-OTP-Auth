@@ -11,15 +11,15 @@ MEXICO = 52
 PERU = 51
 
 CONTRY_CODE_CHOICES = (
-    (COLOMBIA, f'Colombia +{COLOMBIA}'),
-    (ARGENTINA, f'Argentina +{ARGENTINA}'),
-    (BOLIVIA, f'Bolivia +{BOLIVIA}'),
-    (CHILE, f'Chile +{CHILE}'),
-    (COSTA_RICA, f'Costa rica +{COSTA_RICA}'),
-    (CUBA, f'Cuba +{CUBA}'),
-    (DOMINICAN_REPUBLIC, f'Dominican republic +{DOMINICAN_REPUBLIC}'),
-    (ECUADOR, f'Ecuador +{ECUADOR}'),
-    (GUATEMALA, f'Guatemala +{GUATEMALA}'),
-    (MEXICO, f'México +{MEXICO}'),
-    (PERU, f'Perú +{PERU}'),
+    (COLOMBIA, f'+{COLOMBIA} - Colombia'),
+    (ARGENTINA, f'+{ARGENTINA} - Argentina'),
+    (BOLIVIA, f'+{BOLIVIA} - Bolivia'),
+    (CHILE, f'+{CHILE} - Chile'),
+    (COSTA_RICA, f'+{COSTA_RICA} - Costa rica'),
+    (CUBA, f'+{CUBA} - Cuba'),
+    (DOMINICAN_REPUBLIC, f'+{DOMINICAN_REPUBLIC} - Dominican republic'),
+    (ECUADOR, f'+{ECUADOR} - Ecuador'),
+    (GUATEMALA, f'+{GUATEMALA} - Guatemala'),
+    (MEXICO, f'+{MEXICO} - México'),
+    (PERU, f'+{PERU} - Perú'),
 )

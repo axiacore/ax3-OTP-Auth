@@ -19,8 +19,8 @@
         <link rel="icon" href="{% static 'img/favicon.png' %}">
         <style>
             :root {
-                --primary-color: #002aff;
-                --secondary-color: #f3f9ff;
+                --primary-color: {{ OTP_PRIMARY_COLOR }};
+                --secondary-color: {{ OTP_SECONDARY_COLOR }};
             }
         </style>
         <link rel="stylesheet" type="text/css" href="{% static 'otp_auth/css/normalize.css' %}">
@@ -35,7 +35,7 @@
             </header>
             <div class="section">
                 <h1 class="section__title">Inicio de sesión</h1>
-                <p class="section__text">Bodytech usa <b>AX3</b>, una tecnología de Axiacore, para ayudarte a iniciar sesión. Recibiras un <b>SMS o un mensaje</b> de confirmación para verificar tu número de teléfono.</p>
+                <p class="section__text">{{ OTP_BRAND_NAME }} usa <b>AX3</b>, una tecnología de Axiacore, para ayudarte a iniciar sesión. Recibiras un <b>SMS o un mensaje</b> de confirmación para verificar tu número de teléfono.</p>
                 {% block content %}{% endblock %}
             </div>
         </div>
