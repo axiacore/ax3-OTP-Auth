@@ -88,7 +88,18 @@ Configure countries allowed list:
     MEXICO = 52
     PERU = 51
 
-    `OTP_AUTH_COUNTRIES_CODES = [57, 54]
+    OTP_AUTH_COUNTRIES_CODES = [57, 54]
+
+Change color, brand name and logo using this variables:
+
+    OTP_PRIMARY_COLOR = '#eb6806'
+    OTP_BACKGROUND_BTN = '#eb6806'
+    OTP_BACKGROUND_BTN_HOVER = '#000'
+    OTP_COLOR_TEXT_BTN = '#fff'
+    OTP_COLOR_TEXT_BTN_HOVER = '#fff'
+    OTP_BRAND_NAME = 'Axiacore'
+    OTP_BRAND_IMG = 'user-relative-path'
+
 
 ## NSN Configuration
 
