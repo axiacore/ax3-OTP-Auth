@@ -101,6 +101,7 @@
   display: block;
   height: 20px;
   left: 0;
+  opacity: 0.3;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -285,6 +286,13 @@ button {
 .message {
   padding: 80px;
   text-align: center;
+}
+.message__icon {
+  display: block;
+  fill: var(--primary-color);
+  height: 40px;
+  margin: auto;
+  width: 40px;
 }
 .message__title {
   color: var(--primary-color);

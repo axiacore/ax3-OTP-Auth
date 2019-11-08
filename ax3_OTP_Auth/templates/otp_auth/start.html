@@ -1,28 +1,12 @@
 {% extends 'otp_auth/base.html' %}
 {% load widget_tweaks %}
 
-{% block title %}Inicio de sesión{% endblock %}
+{% block title %}Validación exitosa{% endblock %}
 
-{% block content %}
-<form class="form" method="post" action="">
-    {% csrf_token %}
-    <div class="field">
-        <label class="field__label">Ingresa tu número de celular.</label>
-        <div class="field__columns">
-            <div class="field__col">
-                <div class="select">
-                    {% render_field form.country_code %}
-                </div>
-            </div>
-            <div class="field__col">
-                {% render_field form.phone_number %}
-            </div>
-        </div>
-        {{form.country_code.errors}}
-        {{form.phone_number.errors}}
-    </div>
-    <div class="form__action">
-        <button class="btn btn_is-full-width form__btn" type="submit">Enviar mensaje</button>
-    </div>
-</form>
+{% block body %}
+<div class="message">
+    {% include 'svg/_otp-success.html' class='message__icon' %}
+    <p class="message__text">Validación exitosa.</p>
+    <h1 class="message__title">Bienvenido!</h1>
+</div>
 {% endblock %}
