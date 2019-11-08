@@ -9,7 +9,7 @@
     <div class="field">
         <label class="field__label">Ingresa el código que te hemos enviado.</label>
         {% render_field form.code class+='text-center' %}
-        {{form.code.errors}}
+        {{ form.code.errors }}
     </div>
     {% for hidden in form.hidden_fields %}
     {{ hidden }}
