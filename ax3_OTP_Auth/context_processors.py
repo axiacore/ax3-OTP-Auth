@@ -1,5 +1,6 @@
 from django.conf import settings
 
+
 def global_settings(request):
     return {
         'OTP_PRIMARY_COLOR': settings.OTP_PRIMARY_COLOR,

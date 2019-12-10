@@ -14,6 +14,7 @@ OTP_COLOR_TEXT_BTN = getattr(settings, 'OTP_COLOR_TEXT_BTN', '#fff')
 OTP_COLOR_TEXT_BTN_HOVER = getattr(settings, 'OTP_COLOR_TEXT_BTN_HOVER', '#fff')
 OTP_BRAND_NAME = getattr(settings, 'OTP_BRAND_NAME', 'Axiacore')
 OTP_BRAND_IMG = getattr(settings, 'OTP_BRAND_IMG', 'otp_auth/img/axiacore-logo.png')
+OTP_CUSTOM_SMS_GATEWAY = getattr(settings, 'OTP_CUSTOM_SMS_GATEWAY', None)
 
 
 AWS_ACCESS_KEY_ID = getattr(settings, 'OTP_AUTH_AWS_ACCESS_KEY_ID', '')

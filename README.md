@@ -133,6 +133,11 @@ Authenticated user requires an OTP, this OTP was sent by AWS SNS service, once t
     hotp = HOTP(session_key=request.session.session_key)
     phone_number = htop.get_phone_number(code='123')
 
+## Custom SMS Gateway
+
+Set OTP_CUSTOM_SMS_GATEWAY to your settings with the path of your function and the function must be receive country_code, phone_number and message
+
+    OTP_CUSTOM_SMS_GATEWAY = 'app.utils.send_sms'
 
 ## Style SASS
 
