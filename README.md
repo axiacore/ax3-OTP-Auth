@@ -135,7 +135,7 @@ Authenticated user requires an OTP, this OTP was sent by AWS SNS service, once t
 
 ## Custom SMS Gateway
 
-Set OTP_CUSTOM_SMS_GATEWAY to your settings with the path of your function and the function must be receive country_code, phone_number and message
+Set ``OTP_CUSTOM_SMS_GATEWAY`` to your settings with the path of your function and the function must be receive ``country_code``, ``phone_number`` and ``message``
 
     OTP_CUSTOM_SMS_GATEWAY = 'app.utils.send_sms'
 
