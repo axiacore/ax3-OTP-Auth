@@ -21,7 +21,11 @@ class StartView(FormView):
         return response
 
     def form_valid(self, form):
-        hotp = HOTP(unique_id=self.request.COOKIES['otp_unique_id'])
+        unique_id = self.request.COOKIES.get('otp_unique_id', None)
+        if not unique_id:
+            return redirect('otp_auth:start')
+
+        hotp = HOTP(unique_id=unique_id)
         hotp.create(
             country_code=form.cleaned_data['country_code'],
             phone_number=form.cleaned_data['phone_number']
