@@ -75,6 +75,10 @@ If your need change sms message:
 
     `OTP_AUTH_MESSAGE = 'Utiliza {} como código de inicio de sesión.`
 
+If your need redirect to login:
+
+    `LOGIN_URL = 'Utiliza {} como código de inicio de sesión.`
+
 Configure countries allowed list:
     COLOMBIA = 57
     ARGENTINA = 54

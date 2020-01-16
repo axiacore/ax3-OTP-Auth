@@ -7,7 +7,7 @@ from django.views.generic import FormView, TemplateView
 
 from .forms import StartForm, VerifyForm
 from .hotp import HOTP
-from .settings import OTP_AUTH_PARAMS, OTP_AUTH_LOGIN
+from .settings import OTP_AUTH_PARAMS, LOGIN_URL
 
 
 class StartView(FormView):
@@ -31,7 +31,7 @@ class StartView(FormView):
             phone_number=form.cleaned_data['phone_number']
         )
 
-        url = OTP_AUTH_LOGIN
+        url = LOGIN_URL
         if self.request.GET.get('redirect'):
             url = self.request.GET['redirect']
 
@@ -103,7 +103,7 @@ class DoneView(TemplateView):
             for param in OTP_AUTH_PARAMS:
                 params[param] = self.request.GET.get(param)
 
-        url = OTP_AUTH_LOGIN
+        url = LOGIN_URL
         if self.request.GET.get('redirect'):
             url = self.request.GET['redirect']
 
