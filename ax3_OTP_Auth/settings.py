@@ -2,6 +2,7 @@ from django.conf import settings
 
 
 OTP_AUTH_PARAMS = getattr(settings, 'OTP_AUTH_PARAMS', [])
+OTP_AUTH_LOGIN = getattr(settings, 'OTP_AUTH_LOGIN', [])
 OTP_AUTH_TTL = getattr(settings, 'OTP_AUTH_TTL', 60 * 60 * 5)
 OTP_AUTH_MESSAGE = getattr(
     settings, 'OTP_AUTH_MESSAGE', 'Utiliza {} como código de inicio de sesión.'
