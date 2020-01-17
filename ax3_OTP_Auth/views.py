@@ -31,14 +31,10 @@ class StartView(FormView):
             phone_number=form.cleaned_data['phone_number']
         )
 
-        url = LOGIN_URL
-        if self.request.GET.get('redirect'):
-            url = self.request.GET['redirect']
-
         params = {
             'country_code': form.cleaned_data['country_code'],
             'phone_number': form.cleaned_data['phone_number'],
-            'redirect': url,
+            'redirect': self.request.GET.get('redirect', reverse(LOGIN_URL)),
         }
         if OTP_AUTH_PARAMS:
             for param in OTP_AUTH_PARAMS:
@@ -64,7 +60,7 @@ class VerifyView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        params = {'redirect': self.request.GET['redirect']}
+        params = {'redirect': self.request.GET.get('redirect', reverse(LOGIN_URL))}
         if OTP_AUTH_PARAMS:
             for param in OTP_AUTH_PARAMS:
                 params[param] = self.request.GET.get(param)
@@ -84,7 +80,7 @@ class VerifyView(FormView):
             form.add_error('code', 'Código no es valido')
             return self.form_invalid(form)
 
-        params = {'token': token, 'redirect': self.request.GET['redirect']}
+        params = {'token': token, 'redirect': self.request.GET.get('redirect', reverse(LOGIN_URL))}
         if OTP_AUTH_PARAMS:
             for param in OTP_AUTH_PARAMS:
                 params[param] = self.request.GET.get(param)
@@ -103,12 +99,8 @@ class DoneView(TemplateView):
             for param in OTP_AUTH_PARAMS:
                 params[param] = self.request.GET.get(param)
 
-        url = LOGIN_URL
-        if self.request.GET.get('redirect'):
-            url = self.request.GET['redirect']
-
         context['redirect'] = '{}?{}'.format(
-            url,
+            self.request.GET.get('redirect', reverse(LOGIN_URL)),,
             parse.urlencode(params, safe='/')
         )
         return context
