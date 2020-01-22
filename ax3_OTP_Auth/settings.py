@@ -20,3 +20,5 @@ OTP_CUSTOM_SMS_GATEWAY = getattr(settings, 'OTP_CUSTOM_SMS_GATEWAY', None)
 AWS_ACCESS_KEY_ID = getattr(settings, 'OTP_AUTH_AWS_ACCESS_KEY_ID', '')
 AWS_SECRET_ACCESS_KEY = getattr(settings, 'OTP_AUTH_AWS_SECRET_ACCESS_KEY', '')
 AWS_DEFAULT_REGION = getattr(settings, 'OTP_AUTH_AWS_DEFAULT_REGION', 'us-east-1')
+
+LOGIN_URL = getattr(settings, 'LOGIN_URL')

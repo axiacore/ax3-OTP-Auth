@@ -7,7 +7,7 @@ from django.views.generic import FormView, TemplateView
 
 from .forms import StartForm, VerifyForm
 from .hotp import HOTP
-from .settings import OTP_AUTH_PARAMS
+from .settings import OTP_AUTH_PARAMS, LOGIN_URL
 
 
 class StartView(FormView):
@@ -34,7 +34,7 @@ class StartView(FormView):
         params = {
             'country_code': form.cleaned_data['country_code'],
             'phone_number': form.cleaned_data['phone_number'],
-            'redirect': self.request.GET['redirect'],
+            'redirect': self.request.GET.get('redirect', reverse(LOGIN_URL)),
         }
         if OTP_AUTH_PARAMS:
             for param in OTP_AUTH_PARAMS:
@@ -60,7 +60,7 @@ class VerifyView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        params = {'redirect': self.request.GET['redirect']}
+        params = {'redirect': self.request.GET.get('redirect', reverse(LOGIN_URL))}
         if OTP_AUTH_PARAMS:
             for param in OTP_AUTH_PARAMS:
                 params[param] = self.request.GET.get(param)
@@ -80,7 +80,7 @@ class VerifyView(FormView):
             form.add_error('code', 'Código no es valido')
             return self.form_invalid(form)
 
-        params = {'token': token, 'redirect': self.request.GET['redirect']}
+        params = {'token': token, 'redirect': self.request.GET.get('redirect', reverse(LOGIN_URL))}
         if OTP_AUTH_PARAMS:
             for param in OTP_AUTH_PARAMS:
                 params[param] = self.request.GET.get(param)
@@ -100,7 +100,7 @@ class DoneView(TemplateView):
                 params[param] = self.request.GET.get(param)
 
         context['redirect'] = '{}?{}'.format(
-            self.request.GET['redirect'],
+            self.request.GET.get('redirect', reverse(LOGIN_URL)),,
             parse.urlencode(params, safe='/')
         )
         return context
