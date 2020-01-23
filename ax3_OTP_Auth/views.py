@@ -100,7 +100,7 @@ class DoneView(TemplateView):
                 params[param] = self.request.GET.get(param)
 
         context['redirect'] = '{}?{}'.format(
-            self.request.GET.get('redirect', reverse(LOGIN_URL)),,
+            self.request.GET.get('redirect', reverse(LOGIN_URL)),
             parse.urlencode(params, safe='/')
         )
         return context
