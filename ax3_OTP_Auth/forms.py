@@ -14,7 +14,7 @@ class StartForm(forms.Form):
         max_length=25,
         validators=[
             RegexValidator(r'^[0-9]*$', message='Ingresa solo números'),
-            MinLengthValidator(10),
+            MinLengthValidator(9),
         ]
     )
 
